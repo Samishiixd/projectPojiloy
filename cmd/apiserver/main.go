@@ -5,7 +5,7 @@ import (
 	"log"
 
 	"github.com/BurntSushi/toml"
-	"github.com/Samishiixd/http_rest_api/internal/app/apiserver.go"
+	"github.com/Samishiixd/projectPojiloy/internal/app/apiserver"
 )
 
 var (
@@ -20,14 +20,14 @@ func main() {
 	flag.Parse()
 
 	config := apiserver.NewConfig()
-	_, err := toml.Decodefile(configPath, config)
+	_, err := toml.DecodeFile(configPath, config)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	s := apiserver.New(config)
 
-	if err := Start(); err != nil {
+	if err := s.Start(); err != nil {
 		log.Fatal(err)
 	}
 }
